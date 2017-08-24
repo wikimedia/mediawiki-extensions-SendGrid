@@ -1,0 +1,28 @@
+{
+	"name": "SendGrid",
+	"version": "1.0",
+	"author": [
+		"Alangi Derick"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:SendGrid",
+	"descriptionmsg": "sendgrid-desc",
+	"license-name": "GPL-2.0+",
+	"AutoloadClasses": {
+		"SendGridHooks": "SendGridHooks.php"
+	},
+	"MessagesDirs": {
+		"SendGrid": [
+			"i18n"
+		]
+	},
+	"Hooks": {
+		"AlternateUserMailer": [
+			"SendGridHooks::onAlternateUserMailer"
+		]
+	},
+	"load_composer_autoloader": true,
+	"config": {
+		"SendGridAPIKey": ""
+	},
+	"manifest_version": 1
+}

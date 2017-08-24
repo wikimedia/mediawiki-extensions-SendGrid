@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Alangi Derick"
+		]
+	},
+	"sendgrid-desc": "{{desc|what=extension|name=SendGrid|url=https://www.mediawiki.org/wiki/Extension:SendGrid}}"
+}

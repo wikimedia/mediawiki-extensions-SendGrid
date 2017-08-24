@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Alangi Derick"
+		]
+	},
+	"sendgrid-desc": "Send emails through SendGrid API service from Mediawiki"
+}
