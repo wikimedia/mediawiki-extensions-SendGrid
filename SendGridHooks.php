@@ -23,3 +23,19 @@
  * @ingroup Extensions
 */
 
+class SendGridHooks {
+	/**
+	 * Send a mail using SendGrid API
+	 *
+	 * @param array $headers
+	 * @param array $to
+	 * @param MailAddress $from
+	 * @param string $subject
+	 * @param string $body
+	 * @return bool
+	 * @throws Exception
+	 */
+	public static function onAlternateUserMailer( array $headers, array $to, MailAddress $from, $subject, $body ) {
+		
+	}
+}
