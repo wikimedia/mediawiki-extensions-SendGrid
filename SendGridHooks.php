@@ -36,6 +36,27 @@ class SendGridHooks {
 	 * @throws Exception
 	 */
 	public static function onAlternateUserMailer( array $headers, array $to, MailAddress $from, $subject, $body ) {
-		
+		$conf = RequestContext::getMain()->getConfig();
+
+		$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
+
+		if ( $sendgridAPIKey == "" ) {
+			throw new MWException( "Please update your LocalSettings.php with the correct SendGrid API key." );
+		}
+
+		// Get $to and $from email addresses from the array and MailAddress object respectively
+		$from = new SendGrid\Email( null, $from->address );
+		$to = new SendGrid\Email( null, $to[0]->address ); 
+		$body = new SendGrid\Content( "text/plain", $body );
+		$mail = new SendGrid\Mail($from, $subject, $to, $body);
+		$sg = new \SendGrid( $sendgridAPIKey );
+
+		try {
+			$sg->client->mail()->send()->post($mail);
+		} catch ( Exception $e ) {
+			return $e->getMessage();
+		}
+
+		return false;
 	}
 }
