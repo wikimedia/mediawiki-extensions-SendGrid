@@ -15,6 +15,8 @@
             "parallel-lint . --exclude vendor"
         ]
     },
-    "prepend-autoloader": false,
-    "optimize-autoloader": true
+    "config": {
+        "optimize-autoloader": true,
+        "prepend-autoloader": false
+    }
 }
