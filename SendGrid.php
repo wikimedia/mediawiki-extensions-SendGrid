@@ -1,6 +1,7 @@
 <?php
 if ( function_exists( 'wfLoadExtension' ) ) {
 	wfLoadExtension( 'SendGrid' );
+
 	// Keep i18n globals so mergeMessageFileList.php doesn't break
 	$wgMessagesDirs['SendGrid'] = __DIR__ . '/i18n';
 	/* wfWarn(

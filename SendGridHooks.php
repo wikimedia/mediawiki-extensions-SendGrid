@@ -1,6 +1,6 @@
 <?php
 /**
- * Hooks for SendGrid extension for Mediawiki
+ * Hooks for SendGrid extension for MediaWiki
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +45,7 @@ class SendGridHooks {
 	) {
 		$conf = RequestContext::getMain()->getConfig();
 
+		// Value gotten from "wgSendGridAPIKey" variable from LocalSettings.php
 		$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
 
 		if ( $sendgridAPIKey == "" ) {
@@ -58,10 +59,10 @@ class SendGridHooks {
 		$to = new SendGrid\Email( null, $to[0]->address );
 		$body = new SendGrid\Content( "text/plain", $body );
 		$mail = new SendGrid\Mail( $from, $subject, $to, $body );
-		$sg = new \SendGrid( $sendgridAPIKey );
+		$sendgrid = new \SendGrid( $sendgridAPIKey );
 
 		try {
-			$sg->client->mail()->send()->post( $mail );
+			$sendgrid->client->mail()->send()->post( $mail );
 		} catch ( Exception $e ) {
 			return $e->getMessage();
 		}
