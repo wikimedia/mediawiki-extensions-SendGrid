@@ -20,6 +20,8 @@
  * @file
  * @author Alangi Derick <alangiderick@gmail.com>
  * @license GPL-2.0+
+ *
+ * @link https://www.mediawiki.org/wiki/Extension:SendGrid Documentation
  * @ingroup Extensions
 */
 
