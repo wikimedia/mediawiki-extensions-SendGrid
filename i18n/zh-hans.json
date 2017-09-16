@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
+	"sendgrid-desc": "通过SendGrid API服务从Mediawiki发送邮件。"
+}

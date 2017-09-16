@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"sendgrid-desc": "Versendet E-Mails durch den SendGrid-API-Dienst von MediaWiki."
+}

@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"sendgrid-desc": "Verstuur e-mails via de SendGrid API service vanuit MediaWiki"
+}
