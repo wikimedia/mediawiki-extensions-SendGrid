@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piramidion"
+		]
+	},
+	"sendgrid-desc": "Надсилає електронні листи через сервіс SendGrid API з MediaWiki."
+}
