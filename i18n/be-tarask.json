@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Red Winged Duck"
+		]
+	},
+	"sendgrid-desc": "Адпраўка лістоў электроннай пошты праз сэрвіс SendGrid API ад Mediawiki."
+}
