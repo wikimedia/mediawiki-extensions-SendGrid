@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"sendgrid-desc": "Send e-poster via SendGrid-API-tjenesten fra MediaWiki."
+}
