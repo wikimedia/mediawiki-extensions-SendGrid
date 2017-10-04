@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"WikiPhoenix"
+		]
+	},
+	"sendgrid-desc": "Skickar e-post via SendGrid API-tjänsten från Mediawiki."
+}
