@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Banjo"
+		]
+	},
+	"sendgrid-desc": "Enviar correos electrónicos por medio do servicio SendGrid API de Mediawiki."
+}
