@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Facenapalm"
+		]
+	},
+	"sendgrid-desc": "Отправка писем через сервис SendGrid API из Mediawiki."
+}
