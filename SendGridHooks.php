@@ -35,6 +35,7 @@ class SendGridHooks {
 	 * @param MailAddress $from
 	 * @param string $subject
 	 * @param string $body
+	 * @param SendGrid $sendgrid
 	 * @return bool
 	 * @throws Exception
 	 */
@@ -43,17 +44,22 @@ class SendGridHooks {
 		array $to,
 		MailAddress $from,
 		$subject,
-		$body
+		$body,
+		\SendGrid $sendgrid = null
 	) {
-		$conf = RequestContext::getMain()->getConfig();
+		if ( $sendgrid === null ) {
+			$conf = RequestContext::getMain()->getConfig();
 
-		// Value gotten from "wgSendGridAPIKey" variable from LocalSettings.php
-		$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
+			// Value gotten from "wgSendGridAPIKey" variable from LocalSettings.php
+			$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
 
-		if ( $sendgridAPIKey == "" ) {
-			throw new MWException(
-				'Please update your LocalSettings.php with the correct SendGrid API key.'
-			);
+			if ( $sendgridAPIKey === "" ) {
+				throw new MWException(
+					'Please update your LocalSettings.php with the correct SendGrid API key.'
+				);
+			}
+
+			$sendgrid = new \SendGrid( $sendgridAPIKey );
 		}
 
 		// Get $to and $from email addresses from the array and MailAddress object respectively
@@ -61,7 +67,6 @@ class SendGridHooks {
 		$to = new SendGrid\Email( null, $to[0]->address );
 		$body = new SendGrid\Content( "text/plain", $body );
 		$mail = new SendGrid\Mail( $from, $subject, $to, $body );
-		$sendgrid = new \SendGrid( $sendgridAPIKey );
 
 		try {
 			$sendgrid->client->mail()->send()->post( $mail );
@@ -70,6 +75,32 @@ class SendGridHooks {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Handler for UnitTestsList hook.
+	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
+	 * @param array &$files Array of unit test files
+	 * @return bool true in all cases
+	 */
+	public static function onUnitTestsList( &$files ) {
+		// @codeCoverageIgnoreStart
+		$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/tests/' );
+
+		/**
+		 * @var SplFileInfo $fileInfo
+		 */
+		$ourFiles = [];
+		foreach ( new RecursiveIteratorIterator( $directoryIterator ) as $fileInfo ) {
+			if ( substr( $fileInfo->getFilename(), -8 ) === 'Test.php' ) {
+				$ourFiles[] = $fileInfo->getPathname();
+			}
+		}
+
+		$files = array_merge( $files, $ourFiles );
+
+		return true;
+		// @codeCoverageIgnoreEnd
 	}
 
 }

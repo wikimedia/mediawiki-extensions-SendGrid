@@ -18,7 +18,8 @@
 	"Hooks": {
 		"AlternateUserMailer": [
 			"SendGridHooks::onAlternateUserMailer"
-		]
+		],
+		"UnitTestsList": "SendGridHooks::onUnitTestsList"
 	},
 	"load_composer_autoloader": true,
 	"config": {
