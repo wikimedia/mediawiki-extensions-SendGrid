@@ -35,7 +35,7 @@ class SendGridHooks {
 	 * @param MailAddress $from
 	 * @param string $subject
 	 * @param string $body
-	 * @param SendGrid $sendgrid
+	 * @param SendGrid|null $sendgrid
 	 * @return bool
 	 * @throws Exception
 	 */
