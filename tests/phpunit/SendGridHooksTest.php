@@ -38,41 +38,38 @@ class SendGridHooksTest extends MediaWikiTestCase {
 	 */
 	public function testOnAlternateUserMailer() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
-			->disableOriginalConstructor()
-			->getMock();
-		$mock->client = $this->getMockBuilder( 'SendGrid\Client' )
-			->setMethods( [ 'mail', 'send', 'post' ] )
+			->setMethods( [ 'send' ] )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->client->expects( $this->once() )
-			->method( 'mail' )
-			->will( $this->returnValue( $mock->client ) );
-		$mock->client->expects( $this->once() )
+		$mock->expects( $this->once() )
 			->method( 'send' )
-			->will( $this->returnValue( $mock->client ) );
-		$mock->client->expects( $this->once() )
-			->method( 'post' )
 			->with( $this->callback( function ( $email ) {
 				$this->assertSame(
 					'sender@example.com',
-					$email->from->getEmail()
+					$email->getFrom()->getEmail()
 				);
-				$this->assertCount( 1, $email->personalization );
-				$this->assertCount( 1, $email->personalization[0]->getTos() );
+				$this->assertCount( 1, $email->getPersonalizations() );
+				$this->assertCount(
+					1,
+					$email->getPersonalizations()[0]->getTos()
+				);
 				$this->assertSame(
 					'receiver@example.com',
-					$email->personalization[0]->getTos()[0]->getEmail()
+					$email->getPersonalizations()[0]->getTos()[0]->getEmail()
 				);
-				$this->assertSame( 'Some subject', $email->subject );
-				$this->assertCount( 1, $email->contents );
+				$this->assertSame(
+					'Some subject',
+					$email->getGlobalSubject()->getSubject()
+				);
+				$this->assertCount( 1, $email->getContents() );
 				$this->assertSame(
 					'text/plain',
-					$email->contents[0]->getType()
+					$email->getContents()[0]->getType()
 				);
 				$this->assertSame(
 					'Email body',
-					$email->contents[0]->getValue()
+					$email->getContents()[0]->getValue()
 				);
 				return true;
 			} ) );

@@ -62,14 +62,16 @@ class SendGridHooks {
 			$sendgrid = new \SendGrid( $sendgridAPIKey );
 		}
 
-		// Get $to and $from email addresses from the array and MailAddress object respectively
-		$from = new SendGrid\Email( null, $from->address );
-		$to = new SendGrid\Email( null, $to[0]->address );
-		$body = new SendGrid\Content( "text/plain", $body );
-		$mail = new SendGrid\Mail( $from, $subject, $to, $body );
+		// Get $to and $from email addresses from the
+		// `array` and `MailAddress` object respectively
+		$email = new \SendGrid\Mail\Mail();
+		$email->addTo( $to[0]->address, null );
+		$email->setFrom( $from->address, null );
+		$email->setSubject( $subject );
+		$email->addContent( "text/plain", $body );
 
 		try {
-			$sendgrid->client->mail()->send()->post( $mail );
+			$sendgrid->send( $email );
 		} catch ( Exception $e ) {
 			return $e->getMessage();
 		}
