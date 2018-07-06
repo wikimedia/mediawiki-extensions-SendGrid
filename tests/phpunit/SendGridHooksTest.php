@@ -5,12 +5,14 @@
  * @file
  * @author Nikita Volobuev
  * @license GPL-2.0-or-later
+ *
  */
 
 class SendGridHooksTest extends MediaWikiTestCase {
 
 	/**
 	 * Test that onAlternateUserMailer throws Exception if api key is missing.
+	 * @covers \SendGridHooks::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
 		$this->setExpectedException(
@@ -35,6 +37,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 
 	/**
 	 * Test sending mail in onAlternateUserMailer hook.
+	 * @covers \SendGridHooks::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailer() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
