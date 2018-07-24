@@ -1,29 +1,29 @@
 # SendGrid MediaWiki Extension
 
 SendGrid is an extension that allows MediaWiki to send emails through SendGrid API service.
-* Author: Alangi Derick
-* Current release: 1.0
+* Author: Derick N. Alangi
+* Current release: 2.0
 * MediaWiki: 1.25+
 * PHP: 5.6+
-* License: GNU GPL2+
+* License: GNU GPL-2+
 
 ## Installation
 
-* Make sure you have already a MediaWiki environment installed;
-* [Download](https://www.mediawiki.org/wiki/Special:ExtensionDistributor/SendGrid) the **SendGrid** extension;
-* Place the file(s) in a directory called ``SendGrid`` in your ``extensions/`` folder;
+* Make sure you have a MediaWiki environment setup properly.
+* [Download](https://www.mediawiki.org/wiki/Special:ExtensionDistributor/SendGrid) the **SendGrid** extension.
+* Place the extension in ``extensions/`` folder of your MediaWiki project.
 * Add the following code at the bottom of your [LocalSettings.php](https://www.mediawiki.org/wiki/Manual:LocalSettings.php):
 ```php
  wfLoadExtension( 'SendGrid' );
 ```
 
-For MediaWiki 1.24 or earlier:
-* Add the following code at the bottom of your [LocalSettings.php](https://www.mediawiki.org/wiki/Manual:LocalSettings.php):
+For MediaWiki version 1.24 or earlier:
+* Add the following code (instead) at the bottom of your [LocalSettings.php](https://www.mediawiki.org/wiki/Manual:LocalSettings.php):
 ```php
  require_once "$IP/extensions/SendGrid/SendGrid.php";
 ```
 
- **Note:** You will have to run composer update in extensions/SendGrid/ folder so that composer can pick up the required SendGrid dependencies for the extension to run smoothly.
+ **Note:** You will have to run composer update in `extensions/SendGrid/` folder so that composer can pick up the required SendGrid dependencies for the extension to run smoothly.
 
 ## Contribute
 
