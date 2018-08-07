@@ -8,7 +8,7 @@
 	"descriptionmsg": "sendgrid-desc",
 	"license-name": "GPL-2.0-or-later",
 	"AutoloadClasses": {
-		"SendGridHooks": "SendGridHooks.php"
+		"SendGridHooks": "includes/SendGridHooks.php"
 	},
 	"MessagesDirs": {
 		"SendGrid": [
