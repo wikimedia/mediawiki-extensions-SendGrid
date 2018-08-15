@@ -39,7 +39,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 	 * Test sending mail in onAlternateUserMailer hook.
 	 * @covers \SendGridHooks::onAlternateUserMailer
 	 */
-	public function testOnAlternateUserMailer() {
+	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
 			->setMethods( [ 'send' ] )
 			->disableOriginalConstructor()
@@ -77,7 +77,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 				return true;
 			} ) );
 
-		$result = SendGridHooks::onAlternateUserMailer(
+		$result = SendGridHooks::sendEmail(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),

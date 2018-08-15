@@ -28,7 +28,41 @@
 class SendGridHooks {
 
 	/**
-	 * Send a mail using SendGrid API
+	 * Hook handler to send e-mails
+	 *
+	 * @param array $headers
+	 * @param array $to
+	 * @param MailAddress $from
+	 * @param string $subject
+	 * @param string $body
+	 *
+	 * @return bool
+	 */
+	public static function onAlternateUserMailer(
+		array $headers,
+		array $to,
+		MailAddress $from,
+		$subject,
+		$body
+	) {
+		$conf = RequestContext::getMain()->getConfig();
+
+		// From "wgSendGridAPIKey" in LocalSettings.php when defined.
+		$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
+
+		if ( $sendgridAPIKey === "" || !isset( $sendgridAPIKey ) ) {
+			throw new MWException(
+				'Please update your LocalSettings.php with the correct SendGrid API key.'
+			);
+		}
+
+		$sendgrid = new \SendGrid( $sendgridAPIKey );
+
+		return self::sendEmail( $headers, $to, $from, $subject, $body, $sendgrid );
+	}
+
+	/**
+	 * Send Email via the API
 	 *
 	 * @param array $headers
 	 * @param array $to
@@ -36,10 +70,11 @@ class SendGridHooks {
 	 * @param string $subject
 	 * @param string $body
 	 * @param SendGrid|null $sendgrid
-	 * @return bool
 	 * @throws Exception
+	 *
+	 * @return bool
 	 */
-	public static function onAlternateUserMailer(
+	public static function sendEmail(
 		array $headers,
 		array $to,
 		MailAddress $from,
@@ -47,21 +82,6 @@ class SendGridHooks {
 		$body,
 		\SendGrid $sendgrid = null
 	) {
-		if ( $sendgrid === null ) {
-			$conf = RequestContext::getMain()->getConfig();
-
-			// Value gotten from "wgSendGridAPIKey" variable from LocalSettings.php
-			$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
-
-			if ( $sendgridAPIKey === "" ) {
-				throw new MWException(
-					'Please update your LocalSettings.php with the correct SendGrid API key.'
-				);
-			}
-
-			$sendgrid = new \SendGrid( $sendgridAPIKey );
-		}
-
 		// Get $to and $from email addresses from the
 		// `array` and `MailAddress` object respectively
 		$email = new \SendGrid\Mail\Mail();
@@ -78,5 +98,4 @@ class SendGridHooks {
 
 		return false;
 	}
-
 }
