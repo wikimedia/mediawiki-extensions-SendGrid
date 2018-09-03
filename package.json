@@ -7,5 +7,8 @@
 		"grunt": "1.0.1",
 		"grunt-banana-checker": "0.4.0",
 		"grunt-jsonlint": "1.0.7"
-	}
+	},
+	"eslintIgnore": [
+		"vendor/**"
+	]
 }

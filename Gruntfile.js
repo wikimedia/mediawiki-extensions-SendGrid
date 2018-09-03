@@ -4,6 +4,9 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 
 	grunt.initConfig( {
+		eslint: {
+			all: '.'
+		},
 		banana: {
 			all: 'i18n/'
 		},
