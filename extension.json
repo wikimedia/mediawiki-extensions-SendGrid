@@ -7,8 +7,8 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:SendGrid",
 	"descriptionmsg": "sendgrid-desc",
 	"license-name": "GPL-2.0-or-later",
-	"AutoloadClasses": {
-		"SendGridHooks": "includes/SendGridHooks.php"
+	"AutoloadNamespaces": {
+		"MediaWiki\\SendGrid\\": "includes/"
 	},
 	"MessagesDirs": {
 		"SendGrid": [
@@ -17,7 +17,7 @@
 	},
 	"Hooks": {
 		"AlternateUserMailer": [
-			"SendGridHooks::onAlternateUserMailer"
+			"MediaWiki\\SendGrid\\SGHooks::onAlternateUserMailer"
 		]
 	},
 	"load_composer_autoloader": true,
