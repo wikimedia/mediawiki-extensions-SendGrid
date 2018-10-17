@@ -1,4 +1,14 @@
 <?php
+
+namespace MediaWiki\SendGrid;
+
+use HashConfig;
+use MailAddress;
+use MediaWikiTestCase;
+use MWException;
+use MultiConfig;
+use RequestContext;
+
 /**
  * Test for hooks code.
  *
@@ -8,11 +18,11 @@
  *
  */
 
-class SendGridHooksTest extends MediaWikiTestCase {
+class SGHooksTest extends MediaWikiTestCase {
 
 	/**
 	 * Test that onAlternateUserMailer throws Exception if api key is missing.
-	 * @covers \SendGridHooks::onAlternateUserMailer
+	 * @covers MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
 		$this->setExpectedException(
@@ -26,7 +36,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 			] ),
 		] ) );
 
-		SendGridHooks::onAlternateUserMailer(
+		SGHooks::onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -37,7 +47,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 
 	/**
 	 * Test sending mail in onAlternateUserMailer hook.
-	 * @covers \SendGridHooks::onAlternateUserMailer
+	 * @covers MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
 	 */
 	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
@@ -77,7 +87,7 @@ class SendGridHooksTest extends MediaWikiTestCase {
 				return true;
 			} ) );
 
-		$result = SendGridHooks::sendEmail(
+		$result = SGHooks::sendEmail(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),

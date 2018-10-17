@@ -1,4 +1,13 @@
 <?php
+
+namespace MediaWiki\SendGrid;
+
+use Exception;
+use MailAddress;
+use MWException;
+use RequestContext;
+use SendGrid;
+
 /**
  * Hooks for SendGrid extension for MediaWiki
  *
@@ -25,7 +34,7 @@
  * @ingroup Extensions
 */
 
-class SendGridHooks {
+class SGHooks {
 
 	/**
 	 * Hook handler to send e-mails
