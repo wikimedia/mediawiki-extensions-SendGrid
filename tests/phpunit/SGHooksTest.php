@@ -22,7 +22,7 @@ class SGHooksTest extends MediaWikiTestCase {
 
 	/**
 	 * Test that onAlternateUserMailer throws Exception if api key is missing.
-	 * @covers MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
+	 * @covers \MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
 		$this->setExpectedException(
@@ -46,8 +46,8 @@ class SGHooksTest extends MediaWikiTestCase {
 	}
 
 	/**
-	 * Test sending mail in onAlternateUserMailer hook.
-	 * @covers MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
+	 * Test sending email using the onAlternateUserMailer hook.
+	 * @covers \MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
 	 */
 	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
