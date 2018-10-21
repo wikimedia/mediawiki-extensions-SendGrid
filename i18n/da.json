@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saederup92"
+		]
+	},
+	"sendgrid-desc": "Send e-mails via SendGrid API tjenesten fra MediaWiki."
+}
