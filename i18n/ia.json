@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"sendgrid-desc": "Inviar e-mail per le servicio API SendGrid de MediaWiki."
+}
