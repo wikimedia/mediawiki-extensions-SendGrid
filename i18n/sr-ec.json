@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"BadDog"
+		]
+	},
+	"sendgrid-desc": "Слање имејлова путем услуге SendGrid API-ја из Медијавикија."
+}
