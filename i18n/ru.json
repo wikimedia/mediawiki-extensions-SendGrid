@@ -5,5 +5,5 @@
 			"Vlad5250"
 		]
 	},
-	"sendgrid-desc": "Отправка писем из MediaWiki через сервис SendGrid API."
+	"sendgrid-desc": "Отправка писем из MediaWiki через API-сервис SendGrid."
 }
