@@ -19,19 +19,15 @@ use RequestContext;
  */
 
 class SGHooksTest extends MediaWikiTestCase {
-	private $msg;
-
-	protected function setUp() {
-		parent::setUp();
-		$this->exceptionMsg = 'Please update your LocalSettings.php with the correct SendGrid API key.';
-	}
-
 	/**
 	 * Test that onAlternateUserMailer throws Exception if api key is missing.
+	 *
 	 * @covers \MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
-		$this->setExpectedException( MWException::class, $this->exceptionMsg );
+		$this->setExpectedException(
+			MWException::class, 'Please update your LocalSettings.php with the correct SendGrid API key.'
+		);
 
 		RequestContext::getMain()->setConfig( new MultiConfig( [
 			new HashConfig( [
@@ -39,18 +35,21 @@ class SGHooksTest extends MediaWikiTestCase {
 			] ),
 		] ) );
 
-		SGHooks::onAlternateUserMailer(
+		$expected = SGHooks::onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
 			'Some subject',
 			'Email body'
 		);
+
+		$this->assertSame( $expected, MWException::class );
 	}
 
 	/**
-	 * Test sending email using the onAlternateUserMailer hook.
-	 * @covers \MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
+	 * Test sending email sendEmail() method.
+	 *
+	 * @covers \MediaWiki\SendGrid\SGHooks::sendEmail
 	 */
 	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
@@ -101,10 +100,4 @@ class SGHooksTest extends MediaWikiTestCase {
 
 		$this->assertSame( false, $result );
 	}
-
-	protected function tearDown() {
-		unset( $this->exceptionMsg );
-		parent::tearDown();
-	}
-
 }
