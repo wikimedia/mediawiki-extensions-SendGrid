@@ -10,32 +10,37 @@ use MultiConfig;
 use RequestContext;
 
 /**
- * Test for hooks code.
+ * Test for SGHooks code.
  *
- * @file
  * @author Nikita Volobuev
- * @license GPL-2.0-or-later
- *
+ * @author Derick N. Alangi
+ * @coversDefaultClass \MediaWiki\SendGrid\SGHooks
  */
-
 class SGHooksTest extends MediaWikiTestCase {
+	/**
+	 * @param $arg string Argument used for setting the config.
+	 */
+	public function setConfigFactory( $apiKey ) {
+		RequestContext::getMain()->setConfig( new MultiConfig( [
+			new HashConfig( [
+				'SendGridAPIKey' => $apiKey,
+			] ),
+		] ) );
+	}
+
 	/**
 	 * Test that onAlternateUserMailer throws Exception if api key is missing.
 	 *
-	 * @covers \MediaWiki\SendGrid\SGHooks::onAlternateUserMailer
+	 * @covers ::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
+		$this->setConfigFactory( '' );
+
 		$this->setExpectedException(
 			MWException::class, 'Please update your LocalSettings.php with the correct SendGrid API key.'
 		);
 
-		RequestContext::getMain()->setConfig( new MultiConfig( [
-			new HashConfig( [
-				'SendGridAPIKey' => '',
-			] ),
-		] ) );
-
-		$expected = SGHooks::onAlternateUserMailer(
+		$actual = SGHooks::onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -43,13 +48,47 @@ class SGHooksTest extends MediaWikiTestCase {
 			'Email body'
 		);
 
-		$this->assertSame( $expected, MWException::class );
+		$this->assertSame( MWException::class, $actual );
+	}
+
+	/**
+	 * @covers ::onAlternateUserMailer
+	 */
+	public function testOnAlternateUserMailerWithApiKey() {
+		$this->setConfigFactory( 'TestAPIKeyString' );
+
+		$actual = SGHooks::onAlternateUserMailer(
+			[ 'SomeHeader' => 'SomeValue' ],
+			[ new MailAddress( 'receiver@example.com' ) ],
+			new MailAddress( 'sender@example.com' ),
+			'Some subject',
+			'Email body'
+		);
+
+		$this->assertFalse( $actual );
+	}
+
+	/**
+	 * @covers ::sendEmail
+	 */
+	public function testSendEmailWithException() {
+		$this->setExpectedException( \Exception::class );
+
+		$actual = SGHooks::onAlternateUserMailer(
+			[ 'SomeHeader' => 'SomeValue' ],
+			[ new MailAddress( null ) ],
+			new MailAddress( null ),
+			'Some subject',
+			'Email body'
+		);
+
+		$this->assertSame( \Exception::class, $actual );
 	}
 
 	/**
 	 * Test sending email sendEmail() method.
 	 *
-	 * @covers \MediaWiki\SendGrid\SGHooks::sendEmail
+	 * @covers ::sendEmail
 	 */
 	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
@@ -89,7 +128,7 @@ class SGHooksTest extends MediaWikiTestCase {
 				return true;
 			} ) );
 
-		$result = SGHooks::sendEmail(
+		$actual = SGHooks::sendEmail(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -98,6 +137,6 @@ class SGHooksTest extends MediaWikiTestCase {
 			$mock
 		);
 
-		$this->assertSame( false, $result );
+		$this->assertSame( false, $actual );
 	}
 }
