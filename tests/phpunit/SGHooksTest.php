@@ -47,8 +47,6 @@ class SGHooksTest extends MediaWikiTestCase {
 			'Some subject',
 			'Email body'
 		);
-
-		$this->assertSame( MWException::class, $actual );
 	}
 
 	/**
@@ -66,23 +64,6 @@ class SGHooksTest extends MediaWikiTestCase {
 		);
 
 		$this->assertFalse( $actual );
-	}
-
-	/**
-	 * @covers ::sendEmail
-	 */
-	public function testSendEmailWithException() {
-		$this->setExpectedException( \Exception::class );
-
-		$actual = SGHooks::onAlternateUserMailer(
-			[ 'SomeHeader' => 'SomeValue' ],
-			[ new MailAddress( null ) ],
-			new MailAddress( null ),
-			'Some subject',
-			'Email body'
-		);
-
-		$this->assertSame( \Exception::class, $actual );
 	}
 
 	/**
