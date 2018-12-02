@@ -2,12 +2,9 @@
 
 namespace MediaWiki\SendGrid;
 
-use HashConfig;
 use MailAddress;
 use MediaWikiTestCase;
 use MWException;
-use MultiConfig;
-use RequestContext;
 
 /**
  * Test for SGHooks code.
@@ -18,14 +15,10 @@ use RequestContext;
  */
 class SGHooksTest extends MediaWikiTestCase {
 	/**
-	 * @param $arg string Argument used for setting the config.
+	 * @param string $apiKey SendGrid API key
 	 */
-	public function setConfigFactory( $apiKey ) {
-		RequestContext::getMain()->setConfig( new MultiConfig( [
-			new HashConfig( [
-				'SendGridAPIKey' => $apiKey,
-			] ),
-		] ) );
+	public function setConfig( $apiKey ) {
+		$this->setMwGlobals( 'wgSendGridAPIKey', $apiKey );
 	}
 
 	/**
@@ -34,7 +27,7 @@ class SGHooksTest extends MediaWikiTestCase {
 	 * @covers ::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey() {
-		$this->setConfigFactory( '' );
+		$this->setConfig( '' );
 
 		$this->setExpectedException(
 			MWException::class, 'Please update your LocalSettings.php with the correct SendGrid API key.'
@@ -53,7 +46,7 @@ class SGHooksTest extends MediaWikiTestCase {
 	 * @covers ::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerWithApiKey() {
-		$this->setConfigFactory( 'TestAPIKeyString' );
+		$this->setConfig( 'TestAPIKeyString' );
 
 		$actual = SGHooks::onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
