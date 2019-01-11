@@ -27,7 +27,7 @@ use SendGrid;
  * http://www.gnu.org/copyleft/gpl.html
  *
  * @file
- * @author Alangi Derick <alangiderick@gmail.com>
+ * @author Derick Alangi <alangiderick@gmail.com>
  * @license GPL-2.0-or-later
  *
  * @link https://www.mediawiki.org/wiki/Extension:SendGrid Documentation

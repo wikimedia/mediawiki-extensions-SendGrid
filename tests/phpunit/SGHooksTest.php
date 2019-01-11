@@ -10,7 +10,7 @@ use MWException;
  * Test for SGHooks code.
  *
  * @author Nikita Volobuev
- * @author Derick N. Alangi
+ * @author Derick Alangi
  * @coversDefaultClass \MediaWiki\SendGrid\SGHooks
  */
 class SGHooksTest extends MediaWikiTestCase {
