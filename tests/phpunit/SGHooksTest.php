@@ -56,7 +56,7 @@ class SGHooksTest extends MediaWikiTestCase {
 			'Email body'
 		);
 
-		$this->assertFalse( $actual );
+		$this->assertNull( $actual );
 	}
 
 	/**
@@ -111,6 +111,6 @@ class SGHooksTest extends MediaWikiTestCase {
 			$mock
 		);
 
-		$this->assertSame( false, $actual );
+		$this->assertNull( $actual );
 	}
 }

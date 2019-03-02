@@ -2,7 +2,6 @@
 
 namespace MediaWiki\SendGrid;
 
-use Exception;
 use MailAddress;
 use MWException;
 use RequestContext;
@@ -44,8 +43,9 @@ class SGHooks {
 	 * @param MailAddress $from
 	 * @param string $subject
 	 * @param string $body
+	 * @throws MWException
 	 *
-	 * @return bool
+	 * @return string
 	 */
 	public static function onAlternateUserMailer(
 		array $headers,
@@ -59,7 +59,7 @@ class SGHooks {
 		// From "wgSendGridAPIKey" in LocalSettings.php when defined.
 		$sendgridAPIKey = $conf->get( 'SendGridAPIKey' );
 
-		if ( $sendgridAPIKey === "" || !isset( $sendgridAPIKey ) ) {
+		if ( $sendgridAPIKey === '' || !isset( $sendgridAPIKey ) ) {
 			throw new MWException(
 				'Please update your LocalSettings.php with the correct SendGrid API key.'
 			);
@@ -79,9 +79,8 @@ class SGHooks {
 	 * @param string $subject
 	 * @param string $body
 	 * @param SendGrid|null $sendgrid
-	 * @throws Exception
 	 *
-	 * @return bool
+	 * @return string
 	 */
 	public static function sendEmail(
 		array $headers,
@@ -94,17 +93,15 @@ class SGHooks {
 		// Get $to and $from email addresses from the
 		// `array` and `MailAddress` object respectively
 		$email = new \SendGrid\Mail\Mail();
-		$email->addTo( $to[0]->address, null );
-		$email->setFrom( $from->address, null );
+		$email->addTo( $to[0]->address );
+		$email->setFrom( $from->address );
 		$email->setSubject( $subject );
-		$email->addContent( "text/plain", $body );
+		$email->addContent( 'text/plain', $body );
 
 		try {
 			$sendgrid->send( $email );
-		} catch ( Exception $e ) {
+		} catch ( MWException $e ) {
 			return $e->getMessage();
 		}
-
-		return false;
 	}
 }
