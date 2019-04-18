@@ -44,6 +44,7 @@ class SGHooks {
 	 * @param string $subject
 	 * @param string $body
 	 * @throws MWException
+	 * @throws \Exception
 	 *
 	 * @return string
 	 */
@@ -81,6 +82,7 @@ class SGHooks {
 	 * @param SendGrid|null $sendgrid
 	 *
 	 * @return string
+	 * @throws \Exception
 	 */
 	public static function sendEmail(
 		array $headers,
@@ -94,13 +96,23 @@ class SGHooks {
 		// `array` and `MailAddress` object respectively
 		$email = new \SendGrid\Mail\Mail();
 		$email->addTo( $to[0]->address );
-		$email->setFrom( $from->address );
+		if ( filter_var( $from->address, FILTER_VALIDATE_EMAIL ) ) {
+			try{
+				$email->setFrom( $from->address );
+			} catch ( \SendGrid\Mail\TypeException $e ) {
+				return $e->getMessage();
+			}
+		} else {
+			throw new \Exception(
+				'Invalid from email, check the $wgPasswordSender configs'
+			);
+		}
 		$email->setSubject( $subject );
 		$email->addContent( 'text/plain', $body );
 
 		try {
 			$sendgrid->send( $email );
-		} catch ( MWException $e ) {
+		} catch ( \Exception $e ) {
 			return $e->getMessage();
 		}
 	}
