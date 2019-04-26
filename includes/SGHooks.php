@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\SendGrid;
+namespace MediaWiki\Extension\SendGrid;
 
 use MailAddress;
 use MWException;

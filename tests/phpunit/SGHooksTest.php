@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\SendGrid;
+namespace MediaWiki\Extension\SendGrid;
 
 use MailAddress;
 use MediaWikiTestCase;
@@ -11,7 +11,7 @@ use MWException;
  *
  * @author Nikita Volobuev
  * @author Derick Alangi
- * @coversDefaultClass \MediaWiki\SendGrid\SGHooks
+ * @coversDefaultClass \MediaWiki\Extension\SendGrid\SGHooks
  */
 class SGHooksTest extends MediaWikiTestCase {
 	/**
