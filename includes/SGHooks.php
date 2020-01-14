@@ -31,7 +31,7 @@ use SendGrid;
  *
  * @link https://www.mediawiki.org/wiki/Extension:SendGrid Documentation
  * @ingroup Extensions
-*/
+ */
 
 class SGHooks {
 
