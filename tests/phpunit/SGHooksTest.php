@@ -66,7 +66,7 @@ class SGHooksTest extends MediaWikiTestCase {
 	 */
 	public function testSendEmail() {
 		$mock = $this->getMockBuilder( 'SendGrid' )
-			->setMethods( [ 'send' ] )
+			->onlyMethods( [ 'send' ] )
 			->disableOriginalConstructor()
 			->getMock();
 
