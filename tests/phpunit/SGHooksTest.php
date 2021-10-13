@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\SendGrid;
 
 use MailAddress;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use MWException;
 
 /**
@@ -13,7 +13,7 @@ use MWException;
  * @author Derick Alangi
  * @coversDefaultClass \MediaWiki\Extension\SendGrid\SGHooks
  */
-class SGHooksTest extends MediaWikiTestCase {
+class SGHooksTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @param string $apiKey SendGrid API key
 	 */
