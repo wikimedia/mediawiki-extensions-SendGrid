@@ -5,6 +5,8 @@ namespace MediaWiki\Extension\SendGrid;
 use MailAddress;
 use MediaWikiIntegrationTestCase;
 use MWException;
+use SendGrid\Response;
+use Status;
 
 /**
  * Test for SGHooks code.
@@ -26,14 +28,14 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	 *
 	 * @covers ::onAlternateUserMailer
 	 */
-	public function testOnAlternateUserMailerNoApiKey() {
+	public function testOnAlternateUserMailerNoApiKey(): void {
 		$this->setConfig( '' );
 
 		$this->expectException( MWException::class );
 		$this->expectExceptionMessage(
 			'Please update your LocalSettings.php with the correct SendGrid API key.' );
 
-		$actual = SGHooks::onAlternateUserMailer(
+		SGHooks::onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -45,7 +47,7 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @covers ::onAlternateUserMailer
 	 */
-	public function testOnAlternateUserMailerWithApiKey() {
+	public function testOnAlternateUserMailerWithInvalidApiKey(): void {
 		$this->setConfig( 'TestAPIKeyString' );
 
 		$actual = SGHooks::onAlternateUserMailer(
@@ -56,7 +58,10 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 			'Email body'
 		);
 
-		$this->assertNull( $actual );
+		$this->assertSame(
+			wfMessage( 'sendgrid-email-not-sent' )->plain(),
+			$actual
+		);
 	}
 
 	/**
@@ -64,13 +69,16 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	 *
 	 * @covers ::sendEmail
 	 */
-	public function testSendEmail() {
-		$mock = $this->getMockBuilder( 'SendGrid' )
+	public function testOnAlternateUserMailerWithMockedSendGridObject(): void {
+		$mockSendGrid = $this->getMockBuilder( 'SendGrid' )
 			->onlyMethods( [ 'send' ] )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->expects( $this->once() )
+		$mockResponse = $this->createMock( Response::class );
+		$mockResponse->method( 'statusCode' )->willReturn( 200 );
+
+		$mockSendGrid->expects( $this->once() )
 			->method( 'send' )
 			->with( $this->callback( function ( $email ) {
 				$this->assertSame(
@@ -100,17 +108,18 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 					$email->getContents()[0]->getValue()
 				);
 				return true;
-			} ) );
+			} ) )->willReturn( $mockResponse );
 
 		$actual = SGHooks::sendEmail(
-			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
 			'Some subject',
 			'Email body',
-			$mock
+			$mockSendGrid
 		);
 
-		$this->assertNull( $actual );
+		$this->assertInstanceOf( Status::class, $actual );
+		$this->assertTrue( $actual->isOK() );
 	}
+
 }

@@ -2,10 +2,14 @@
 
 namespace MediaWiki\Extension\SendGrid;
 
+use Exception;
 use MailAddress;
 use MWException;
 use RequestContext;
 use SendGrid;
+use SendGrid\Mail\Mail;
+use SendGrid\Mail\TypeException;
+use Status;
 
 /**
  * Hooks for SendGrid extension for MediaWiki
@@ -34,7 +38,6 @@ use SendGrid;
  */
 
 class SGHooks {
-
 	/**
 	 * Hook handler to send e-mails
 	 *
@@ -43,10 +46,8 @@ class SGHooks {
 	 * @param MailAddress $from
 	 * @param string $subject
 	 * @param string $body
-	 * @throws MWException
-	 * @throws \Exception
-	 *
-	 * @return string
+	 * @return bool|void|string
+	 * @throws MWException|TypeException
 	 */
 	public static function onAlternateUserMailer(
 		array $headers,
@@ -66,44 +67,54 @@ class SGHooks {
 			);
 		}
 
-		$sendgrid = new \SendGrid( $sendgridAPIKey );
+		$sendgrid = new SendGrid( $sendgridAPIKey );
+		$response = self::sendEmail( $to, $from, $subject, $body, $sendgrid );
 
-		return self::sendEmail( $headers, $to, $from, $subject, $body, $sendgrid );
+		if ( $response !== null && $response->isOK() ) {
+			// The email was successfully sent. Return
+			// `false` to skip calling `mail()` which
+			// is the regular way that core sends mails.
+			return false;
+		}
+
+		if ( $response === null || !$response->isOK() ) {
+			return $response->getMessage()->plain();
+		}
 	}
 
 	/**
 	 * Send Email via the API
 	 *
-	 * @param array $headers
 	 * @param array $to
 	 * @param MailAddress $from
 	 * @param string $subject
 	 * @param string $body
-	 * @param SendGrid|null $sendgrid
-	 *
-	 * @return string
-	 * @throws \Exception
+	 * @param ?SendGrid $sendgrid
+	 * @return ?Status
+	 * @throws MWException|TypeException
 	 */
 	public static function sendEmail(
-		array $headers,
 		array $to,
 		MailAddress $from,
 		$subject,
 		$body,
-		\SendGrid $sendgrid = null
-	) {
+		?SendGrid $sendgrid = null
+	): ?Status {
+		if ( $sendgrid === null ) {
+			return null;
+		}
 		// Get $to and $from email addresses from the
 		// `array` and `MailAddress` object respectively
-		$email = new \SendGrid\Mail\Mail();
+		$email = new Mail();
 		$email->addTo( $to[0]->address );
 		if ( filter_var( $from->address, FILTER_VALIDATE_EMAIL ) ) {
-			try{
+			try {
 				$email->setFrom( $from->address );
-			} catch ( \SendGrid\Mail\TypeException $e ) {
-				return $e->getMessage();
+			} catch ( TypeException $e ) {
+				return Status::newGood( $e->getMessage() );
 			}
 		} else {
-			throw new \Exception(
+			throw new MWException(
 				'Invalid from email, check the $wgPasswordSender configs'
 			);
 		}
@@ -111,9 +122,15 @@ class SGHooks {
 		$email->addContent( 'text/plain', $body );
 
 		try {
-			$sendgrid->send( $email );
-		} catch ( \Exception $e ) {
-			return $e->getMessage();
+			$response = $sendgrid->send( $email );
+			if ( $response->statusCode() === 200 ) {
+				return Status::newGood();
+			}
+
+			return Status::newFatal( 'sendgrid-email-not-sent' );
+		} catch ( Exception $e ) {
+			return Status::newGood( $e->getMessage() );
 		}
 	}
+
 }

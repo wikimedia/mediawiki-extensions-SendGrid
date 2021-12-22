@@ -4,5 +4,6 @@
 			"Alangi Derick"
 		]
 	},
-	"sendgrid-desc": "Send emails through the SendGrid API service from MediaWiki."
+	"sendgrid-desc": "Send emails through the SendGrid API service from MediaWiki.",
+	"sendgrid-email-not-sent": "Email was not sent due to a problem with the API. Check your API key and make sure it's correct."
 }

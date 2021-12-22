@@ -4,5 +4,6 @@
 			"Alangi Derick"
 		]
 	},
-	"sendgrid-desc": "{{desc|what=extension|name=SendGrid|url=https://www.mediawiki.org/wiki/Extension:SendGrid}}"
+	"sendgrid-desc": "{{desc|what=extension|name=SendGrid|url=https://www.mediawiki.org/wiki/Extension:SendGrid}}",
+	"sendgrid-email-not-sent": "Message show when an error occurred when trying to send an email."
 }
