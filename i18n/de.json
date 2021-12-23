@@ -4,5 +4,6 @@
 			"Metalhead64"
 		]
 	},
-	"sendgrid-desc": "Versendet E-Mails durch den SendGrid-API-Dienst von MediaWiki."
+	"sendgrid-desc": "Versendet E-Mails durch den SendGrid-API-Dienst von MediaWiki.",
+	"sendgrid-email-not-sent": "Die E-Mail wurde aufgrund eines Problems mit der API nicht gesendet. Überprüfe deinen API-Schlüssel und stelle sicher, dass er korrekt ist."
 }
