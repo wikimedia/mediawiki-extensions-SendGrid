@@ -123,7 +123,7 @@ class SGHooks {
 
 		try {
 			$response = $sendgrid->send( $email );
-			if ( $response->statusCode() === 200 ) {
+			if ( $response->statusCode() === 202 ) {
 				return Status::newGood();
 			}
 
