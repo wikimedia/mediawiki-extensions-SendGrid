@@ -76,7 +76,7 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 			->getMock();
 
 		$mockResponse = $this->createMock( Response::class );
-		$mockResponse->method( 'statusCode' )->willReturn( 200 );
+		$mockResponse->method( 'statusCode' )->willReturn( 202 );
 
 		$mockSendGrid->expects( $this->once() )
 			->method( 'send' )
