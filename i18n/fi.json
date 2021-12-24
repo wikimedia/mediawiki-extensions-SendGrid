@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hopea"
+			"Hopea",
+			"MITO"
 		]
 	},
-	"sendgrid-desc": "Lähettää sähköposteja Mediawikin SendGrid API palvelun kautta."
+	"sendgrid-desc": "Lähettää sähköposteja Mediawikin SendGrid API palvelun kautta.",
+	"sendgrid-email-not-sent": "Sähköpostia ei lähetetty API-ongelman vuoksi. Tarkista API-avaimesi ja varmista, että se on oikein."
 }
