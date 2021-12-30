@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Salvemm el lombard"
+		]
+	},
+	"sendgrid-email-not-sent": "El messagg l'è stad minga mandad per via d'ona problema com l'API. Controlla la toa ciav API e sicures che la sia giusta"
+}
