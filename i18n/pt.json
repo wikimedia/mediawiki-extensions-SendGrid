@@ -4,5 +4,6 @@
 			"Hamilton Abreu"
 		]
 	},
-	"sendgrid-desc": "Enviar correio eletrónico a partir do MediaWiki através do serviço API SendGrid"
+	"sendgrid-desc": "Enviar correio eletrónico a partir do MediaWiki através do serviço API SendGrid",
+	"sendgrid-email-not-sent": "O correio eletrónico não foi enviado devido a um problema na API. Verifique a sua chave da API e certifique-se de que a mesma está correta."
 }
