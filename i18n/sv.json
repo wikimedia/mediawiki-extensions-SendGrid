@@ -4,5 +4,5 @@
 			"WikiPhoenix"
 		]
 	},
-	"sendgrid-desc": "Skickar e-post via SendGrid API-tjänsten från Mediawiki."
+	"sendgrid-desc": "Skickar e-post via SendGrid API-tjänsten från MediaWiki."
 }
