@@ -4,5 +4,5 @@
 			"Beta16"
 		]
 	},
-	"sendgrid-desc": "Invia email attraverso il servizio API SendGrid da Mediawiki"
+	"sendgrid-desc": "Invia email attraverso il servizio API SendGrid da MediaWiki"
 }

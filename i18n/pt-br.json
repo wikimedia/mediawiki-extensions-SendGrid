@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Eduardoaddad"
 		]
 	},
-	"sendgrid-desc": "Envie e-mails através do serviço SendGrid API da Mediawiki."
+	"sendgrid-desc": "Envie e-mails através do serviço SendGrid API da MediaWiki."
 }
