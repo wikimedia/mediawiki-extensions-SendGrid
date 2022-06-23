@@ -4,5 +4,5 @@
 			"Liuxinyu970226"
 		]
 	},
-	"sendgrid-desc": "通过SendGrid API服务从Mediawiki发送邮件。"
+	"sendgrid-desc": "通过SendGrid API服务从MediaWiki发送邮件。"
 }

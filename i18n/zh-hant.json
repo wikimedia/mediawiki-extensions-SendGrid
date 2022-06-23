@@ -4,6 +4,6 @@
 			"Kly"
 		]
 	},
-	"sendgrid-desc": "透過 SendGrid API 服務來從 Mediawiki 寄送電子郵件。",
+	"sendgrid-desc": "透過 SendGrid API 服務來從 MediaWiki 寄送電子郵件。",
 	"sendgrid-email-not-sent": "出於 API 問題無法發送電子郵件。請檢查您的 API 金鑰並確認是正確的。"
 }
