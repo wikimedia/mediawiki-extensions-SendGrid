@@ -1,10 +1,13 @@
 <?php
 
-namespace MediaWiki\Extension\SendGrid;
+namespace MediaWiki\Extension\SendGrid\Tests;
 
+use Exception;
 use MailAddress;
+use MediaWiki\Extension\SendGrid\SGHooks;
 use MediaWikiIntegrationTestCase;
 use MWException;
+use SendGrid;
 use SendGrid\Response;
 use Status;
 
@@ -19,8 +22,8 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @param string $apiKey SendGrid API key
 	 */
-	public function setConfig( $apiKey ) {
-		$this->setMwGlobals( 'wgSendGridAPIKey', $apiKey );
+	private function setSendGridConfig( string $apiKey ) {
+		$this->overrideConfigValue( SGHooks::SENDGRID_API_KEY, $apiKey );
 	}
 
 	/**
@@ -29,13 +32,13 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerNoApiKey(): void {
-		$this->setConfig( '' );
+		$this->setSendGridConfig( '' );
 
 		$this->expectException( MWException::class );
 		$this->expectExceptionMessage(
 			'Please update your LocalSettings.php with the correct SendGrid API key.' );
 
-		SGHooks::onAlternateUserMailer(
+		( new SGHooks() )->onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -48,9 +51,9 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::onAlternateUserMailer
 	 */
 	public function testOnAlternateUserMailerWithInvalidApiKey(): void {
-		$this->setConfig( 'TestAPIKeyString' );
+		$this->setSendGridConfig( 'TestAPIKeyString' );
 
-		$actual = SGHooks::onAlternateUserMailer(
+		$actual = ( new SGHooks() )->onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
@@ -70,10 +73,7 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::sendEmail
 	 */
 	public function testOnAlternateUserMailerWithMockedSendGridObject(): void {
-		$mockSendGrid = $this->getMockBuilder( 'SendGrid' )
-			->onlyMethods( [ 'send' ] )
-			->disableOriginalConstructor()
-			->getMock();
+		$mockSendGrid = $this->createNoOpMock( SendGrid::class, [ 'send' ] );
 
 		$mockResponse = $this->createMock( Response::class );
 		$mockResponse->method( 'statusCode' )->willReturn( 202 );
@@ -110,7 +110,7 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 				return true;
 			} ) )->willReturn( $mockResponse );
 
-		$actual = SGHooks::sendEmail(
+		$actual = ( new SGHooks() )->sendEmail(
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
 			'Some subject',
@@ -120,6 +120,28 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertInstanceOf( Status::class, $actual );
 		$this->assertTrue( $actual->isOK() );
+	}
+
+	/**
+	 * @covers ::sendEmail
+	 */
+	public function testSendEmailSendEmailThrows() {
+		$mockSendGrid = $this->createNoOpMock( SendGrid::class, [ 'send' ] );
+
+		$mockSendGrid->expects( $this->once() )
+			->method( 'send' )
+			->willThrowException( new Exception( 'Test exception' ) );
+
+		$actual = ( new SGHooks() )->sendEmail(
+			[ new MailAddress( 'receiver@example.com' ) ],
+			new MailAddress( 'sender@example.com' ),
+			'Some subject',
+			'Email body',
+			$mockSendGrid
+		);
+
+		$this->assertInstanceOf( Status::class, $actual );
+		$this->assertSame( 'Test exception', $actual->getValue() );
 	}
 
 }
