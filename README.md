@@ -1,9 +1,9 @@
 # SendGrid MediaWiki Extension
 
 SendGrid is an extension that allows MediaWiki to send emails through SendGrid API service.
-* Author: Derick N. Alangi
-* Current release: 2.1
-* MediaWiki: 1.31+
+* Author: Derick Alangi
+* Current release: 4.0
+* MediaWiki: >=1.40.0
 * PHP: 7.0+
 * License: GNU GPL-2+
 
