@@ -53,17 +53,14 @@ class SGHooksTest extends MediaWikiIntegrationTestCase {
 	public function testOnAlternateUserMailerWithInvalidApiKey(): void {
 		$this->setSendGridConfig( 'TestAPIKeyString' );
 
-		$actual = ( new SGHooks() )->onAlternateUserMailer(
+		$this->expectException( MWException::class );
+
+		( new SGHooks() )->onAlternateUserMailer(
 			[ 'SomeHeader' => 'SomeValue' ],
 			[ new MailAddress( 'receiver@example.com' ) ],
 			new MailAddress( 'sender@example.com' ),
 			'Some subject',
 			'Email body'
-		);
-
-		$this->assertSame(
-			wfMessage( 'sendgrid-email-not-sent' )->plain(),
-			$actual
 		);
 	}
 

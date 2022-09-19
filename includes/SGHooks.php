@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\SendGrid;
 
 use Exception;
+use FormatJson;
 use MailAddress;
 use MediaWiki\Hook\AlternateUserMailerHook;
 use MWException;
@@ -81,7 +82,11 @@ class SGHooks implements AlternateUserMailerHook {
 		}
 
 		if ( $response === null || !$response->isOK() ) {
-			return $response->getMessage()->plain();
+			// Inform the user why the email was not sent.
+			$error = FormatJson::decode( $response->getErrors()[0]['message'] );
+			throw new MWException(
+				$error->errors[0]->message ?? '$wgPasswordSender does not match Sender Identity on SendGrid'
+			);
 		}
 	}
 
