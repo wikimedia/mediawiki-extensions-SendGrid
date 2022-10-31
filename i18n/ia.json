@@ -4,5 +4,6 @@
 			"McDutchie"
 		]
 	},
-	"sendgrid-desc": "Inviar e-mail per le servicio API SendGrid de MediaWiki."
+	"sendgrid-desc": "Inviar e-mail per le servicio API SendGrid de MediaWiki.",
+	"sendgrid-email-not-sent": "Le message de e-mail non ha essite inviate a causa de un problema con le API. Verifica tu clave API e assecura te que illo es correcte."
 }
