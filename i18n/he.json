@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80"
+		]
+	},
+	"sendgrid-desc": "שלח דוא\"ל דרך שירות SendGrid API מ־MediaWiki.",
+	"sendgrid-email-not-sent": "הדוא\"ל לא נשלח עקב בעיה ב־API. נא לבדוק את מפתח ה־API שלך ולוודא שהוא נכון."
+}
