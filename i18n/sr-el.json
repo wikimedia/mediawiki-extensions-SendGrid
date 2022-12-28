@@ -1,0 +1,6 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"sendgrid-desc": "Slanje imejlova putem usluge SendGrid API-ja iz Medijavikija."
+}
