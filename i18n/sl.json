@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"sendgrid-desc": "Pošiljajte e-pošto z API-storitvijo SendGrip iz MediaWikija."
+}
