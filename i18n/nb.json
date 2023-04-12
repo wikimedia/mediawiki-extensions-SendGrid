@@ -4,5 +4,6 @@
 			"Jon Harald Søby"
 		]
 	},
-	"sendgrid-desc": "Send e-poster via SendGrid-API-tjenesten fra MediaWiki."
+	"sendgrid-desc": "Send e-poster via SendGrid-API-tjenesten fra MediaWiki.",
+	"sendgrid-email-not-sent": "E-post ble ikke sendt på grunn av et problem med API-et. Sjekk API-nøkkelen din og sørg for at den er riktig."
 }
