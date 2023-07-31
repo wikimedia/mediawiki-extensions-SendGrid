@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Winston Sung"
 		]
 	},
 	"sendgrid-desc": "Slanje imejlova iz Medijavikija putem priložne usluge SendGrid.",
