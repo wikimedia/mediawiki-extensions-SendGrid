@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"sendgrid-desc": "Slanje imejlova iz Medijavikija putem priložne usluge SendGrid.",
+	"sendgrid-email-not-sent": "Imejl nije bio poslat zbog problema s priložnikom. Provjerite je li ključ priložnika vam točan."
+}
