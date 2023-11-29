@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"McDutchie"
 		]
 	},
-	"sendgrid-desc": "Verstuur e-mails via de SendGrid API service vanuit MediaWiki"
+	"sendgrid-desc": "Verstuur e-mails via de SendGrid API service vanuit MediaWiki",
+	"sendgrid-email-not-sent": "E-mail is niet verzonden vanwege een probleem met de API. Controleer uw API-sleutel en zorg ervoor dat deze correct is."
 }
