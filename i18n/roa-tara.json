@@ -4,5 +4,6 @@
 			"Joetaras"
 		]
 	},
-	"sendgrid-desc": "Manne email ausanne 'u servizie SendGrid API da MediaUicchi."
+	"sendgrid-desc": "Manne email ausanne 'u servizie SendGrid API da MediaUicchi.",
+	"sendgrid-email-not-sent": "L'email non g'ha state mannate pe probbleme cu le API. Condriolle 'a chiave de le API tune e condrolle ce jè corrette."
 }
