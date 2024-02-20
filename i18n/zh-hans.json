@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Anterdc99"
 		]
 	},
-	"sendgrid-desc": "通过SendGrid API服务从MediaWiki发送邮件。"
+	"sendgrid-desc": "通过SendGrid API服务从MediaWiki发送邮件。",
+	"sendgrid-email-not-sent": "由于API出现问题，电子邮件未发送。检查您的API密钥并确保其正确。"
 }
