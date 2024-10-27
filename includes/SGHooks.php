@@ -65,7 +65,7 @@ class SGHooks implements AlternateUserMailerHook {
 
 		$sendgridAPIKey = $conf->get( self::SENDGRID_API_KEY );
 
-		if ( $sendgridAPIKey === '' || !isset( $sendgridAPIKey ) ) {
+		if ( $sendgridAPIKey === '' || $sendgridAPIKey === null ) {
 			throw new MWException(
 				'Please update your LocalSettings.php with the correct SendGrid API key.'
 			);
