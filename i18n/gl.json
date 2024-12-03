@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Banjo"
+			"Banjo",
+			"Toliño"
 		]
 	},
-	"sendgrid-desc": "Enviar correos electrónicos por medio do servicio SendGrid API de MediaWiki."
+	"sendgrid-desc": "Enviar correos electrónicos por medio do servizo SendGrid API de MediaWiki.",
+	"sendgrid-email-not-sent": "Non se enviou o correo electrónico debido a un problema coa API. Comproba a túa clave da API e asegúrate de que sexa correcta."
 }
