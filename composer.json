@@ -1,6 +1,5 @@
 {
 	"require": {
-		"php": ">=5.6",
 		"sendgrid/sendgrid": "~7"
 	},
 	"require-dev": {
