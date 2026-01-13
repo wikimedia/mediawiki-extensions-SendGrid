@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Stefan2255",
 			"WikiPhoenix"
 		]
 	},
-	"sendgrid-desc": "Skickar e-post via SendGrid API-tjänsten från MediaWiki."
+	"sendgrid-desc": "Skickar e-post via SendGrid API-tjänsten från MediaWiki.",
+	"sendgrid-email-not-sent": "E-postmeddelandet skickades inte på grund av ett problem med API:et. Kontrollera din API-nyckel och se till att den är korrekt."
 }
