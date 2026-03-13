@@ -1,6 +1,6 @@
 {
 	"require": {
-		"sendgrid/sendgrid": "~7"
+		"sendgrid/sendgrid": "~8"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "50.0.0",
