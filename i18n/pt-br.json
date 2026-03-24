@@ -5,5 +5,6 @@
 			"Eduardoaddad"
 		]
 	},
-	"sendgrid-desc": "Envie e-mails através do serviço SendGrid API da MediaWiki."
+	"sendgrid-desc": "Envie e-mails através do serviço SendGrid API da MediaWiki.",
+	"sendgrid-email-not-sent": "O e-mail não foi enviado devido a um problema na API. Verifique a sua chave da API e certifique-se de que a mesma está correta."
 }
