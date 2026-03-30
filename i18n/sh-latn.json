@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Winston Sung"
 		]
 	},
-	"sendgrid-desc": "Slanje imejlova iz Medijavikija putem priložne usluge SendGrid.",
-	"sendgrid-email-not-sent": "Imejl nije bio poslat zbog problema s priložnikom. Provjerite je li ključ priložnika vam točan."
+	"sendgrid-desc": "Slanje imejlova iz MediaWikija putem API usluge SendGrid.",
+	"sendgrid-email-not-sent": "Imejl nije bio poslat zbog problema s API-jem. Provjerite je li API ključ vam točan."
 }
