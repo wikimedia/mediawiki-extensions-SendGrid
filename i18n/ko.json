@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Tensama0415"
 		]
 	},
-	"sendgrid-desc": "미디어위키의 SendGrid API 서비스를 통해 이메일을 보냅니다."
+	"sendgrid-desc": "미디어위키의 SendGrid API 서비스를 통해 이메일을 보냅니다.",
+	"sendgrid-email-not-sent": "API 문제로 인해 이메일이 전송되지 않았습니다. API 키를 확인하고 올바른지 확인하세요."
 }
