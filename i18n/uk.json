@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Movses",
 			"Piramidion"
 		]
 	},
-	"sendgrid-desc": "Надсилає електронні листи через сервіс SendGrid API з MediaWiki."
+	"sendgrid-desc": "Надсилає електронні листи через сервіс SendGrid API з MediaWiki.",
+	"sendgrid-email-not-sent": "Електронний лист не було надіслано через проблему з API. Перевірте свій ключ API та переконайтеся, що він правильний."
 }
