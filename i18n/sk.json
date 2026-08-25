@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"sendgrid-desc": "Odosiela e-maily z MediaWiky prostredníctvom služby SendGrid API.",
+	"sendgrid-email-not-sent": "E-mail nebol odoslaný pre problém s API. Skontrolujte svoj kľúč API, či je správny."
+}
